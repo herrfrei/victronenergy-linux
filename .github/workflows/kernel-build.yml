@@ -65,7 +65,7 @@ jobs:
         if [[ "${{matrix.arch}}" == "arm64" ]]; then
           sudo apt-get install gcc-aarch64-linux-gnu;
         else
-          sudo apt-get install gcc-arm-linux-gnueabihf;
+          sudo apt-get install gcc-11-arm-linux-gnueabihf gcc-11-plugin-dev-arm-linux-gnueabihf;
         fi
       timeout-minutes: 5
 
