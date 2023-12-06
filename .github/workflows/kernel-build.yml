@@ -97,6 +97,8 @@ jobs:
         cp ${{github.workspace}}/build/arch/${ARCH}/boot/dts/overlays/*.dtb* ${{github.workspace}}/install/boot/overlays/
         cp ${{github.workspace}}/arch/${ARCH}/boot/dts/overlays/README ${{github.workspace}}/install/boot/overlays/
         cp ${{github.workspace}}/build/arch/${ARCH}/boot/$IMAGE ${{github.workspace}}/install/boot/${{matrix.kernel}}.img
+        # copy config file also
+        cp ${{github.workspace}}/build/.config ${{github.workspace}}/install/boot/.config
 
     - name: Tar build
       run: tar -cvf ${{matrix.name}}_build.tar -C ${{github.workspace}}/install .
