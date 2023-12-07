@@ -87,12 +87,13 @@ jobs:
           export DTS_SUBDIR=
           export IMAGE=zImage
         fi
-        make O=${{github.workspace}}/build ${{matrix.defconfig}}
+        make LOCALVERSION="-rpi-venus-4" O=${{github.workspace}}/build ${{matrix.defconfig}}
         scripts/config --file ${{github.workspace}}/build/.config --set-val CONFIG_WERROR y
+        scripts/config --file ${{github.workspace}}/build/.config --set-val BACKLIGHT_PWM m
         # scripts/config --file ${{github.workspace}}/build/.config --set-str LOCALVERSION "-rpi-venus-4"
         make O=${{github.workspace}}/build -j ${{env.NUM_JOBS}} $IMAGE modules dtbs
         mkdir -p ${{github.workspace}}/install/boot/overlays
-        make LOCALVERSION="-rpi-venus-4" O=${{github.workspace}}/build INSTALL_MOD_PATH=${{github.workspace}}/install modules_install
+        make O=${{github.workspace}}/build INSTALL_MOD_PATH=${{github.workspace}}/install modules_install
         cp ${{github.workspace}}/build/arch/${ARCH}/boot/dts/${DTS_SUBDIR}/*.dtb ${{github.workspace}}/install/boot/
         cp ${{github.workspace}}/build/arch/${ARCH}/boot/dts/overlays/*.dtb* ${{github.workspace}}/install/boot/overlays/
         cp ${{github.workspace}}/arch/${ARCH}/boot/dts/overlays/README ${{github.workspace}}/install/boot/overlays/
