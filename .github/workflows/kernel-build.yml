@@ -91,7 +91,7 @@ jobs:
         scripts/config --file ${{github.workspace}}/build/.config --set-val CONFIG_WERROR y
         scripts/config --file ${{github.workspace}}/build/.config --set-val BACKLIGHT_PWM m
         scripts/config --file ${{github.workspace}}/build/.config --set-str LOCALVERSION "-rpi-venus-4"
-        scripts/config --file ${{github.workspace}}/build/.config --set-val LOCALVERSION_AUTO n
+        scripts/config --file ${{github.workspace}}/build/.config --disable LOCALVERSION_AUTO
         make O=${{github.workspace}}/build -j ${{env.NUM_JOBS}} $IMAGE modules dtbs
         mkdir -p ${{github.workspace}}/install/boot/overlays
         make O=${{github.workspace}}/build INSTALL_MOD_PATH=${{github.workspace}}/install modules_install
