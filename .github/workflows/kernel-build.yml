@@ -93,6 +93,7 @@ jobs:
         # add pwm backlight support
         scripts/config --file ${{github.workspace}}/build/.config --set-val BACKLIGHT_PWM m
         cp ${{github.workspace}}/.files/pwm-backlight-overlay.dts ${{github.workspace}}/arch/${ARCH}/boot/dts/overlays/
+        sed -i 's/pwm-2chan.dtbo \\/pwm-2chan.dtbo \\\n  pwm-backlight.dtbo \\/' ${{github.workspace}}/arch/${ARCH}/boot/dts/overlays/Makefile
         # build everything
         make LOCALVERSION= O=${{github.workspace}}/build -j ${{env.NUM_JOBS}} $IMAGE modules dtbs
         mkdir -p ${{github.workspace}}/install/boot/overlays
